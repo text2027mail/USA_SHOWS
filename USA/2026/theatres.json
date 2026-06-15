@@ -23710,5 +23710,253 @@
     "z": "99654",
     "cn": "Coming Attractions Theatres",
     "cc": "CATT"
+  },
+  "AAKVB": {
+    "n": "Temple Theatre",
+    "c": "Houlton",
+    "s": "ME",
+    "z": "04730",
+    "cn": "RTSIND",
+    "cc": "RTSIND"
+  },
+  "AATOZ": {
+    "n": "The 1932 Criterion Theatre",
+    "c": "Bar Harbor",
+    "s": "ME",
+    "z": "04609",
+    "cn": "Veezi Theaters",
+    "cc": "VZ"
+  },
+  "AAUEG": {
+    "n": "Black River Drive-In",
+    "c": "Black River",
+    "s": "NY",
+    "z": "13612",
+    "cn": "RTSIND",
+    "cc": "RTSIND"
+  },
+  "AAKHU": {
+    "n": "Regal Salmon Run",
+    "c": "Watertown",
+    "s": "NY",
+    "z": "13601",
+    "cn": "Regal",
+    "cc": "REGL"
+  },
+  "AAKGP": {
+    "n": "Regal Champlain Centre",
+    "c": "Plattsburgh",
+    "s": "NY",
+    "z": "12901",
+    "cn": "Regal",
+    "cc": "REGL"
+  },
+  "AAXRT": {
+    "n": "(Closed) B&B Theatres Vicksburg Mall 6",
+    "c": "Vicksburg",
+    "s": "MS",
+    "z": "39180",
+    "cn": "B&B Theaters",
+    "cc": "BNBT"
+  },
+  "AAYMV": {
+    "n": "Crowne Pointe Theatre ",
+    "c": "Elizabethtown",
+    "s": "KY",
+    "z": "42701",
+    "cn": "RTSIND",
+    "cc": "RTSIND"
+  },
+  "AAWKW": {
+    "n": "Menomonie 7 Theatre",
+    "c": "Menomonie",
+    "s": "WI",
+    "z": "54751",
+    "cn": "CEC Theatres",
+    "cc": "CEC"
+  },
+  "AAOKP": {
+    "n": "Brookings Cinema 8",
+    "c": "Brookings",
+    "s": "SD",
+    "z": "57006",
+    "cn": "RTSIND",
+    "cc": "RTSIND"
+  },
+  "AAFOW": {
+    "n": "Mann Lakes 12",
+    "c": "Baxter",
+    "s": "MN",
+    "z": "56401",
+    "cn": "Mann Theatres",
+    "cc": "MANN"
+  },
+  "AAJXK": {
+    "n": "Mann Grand Rapids Cinema 8 ",
+    "c": "Grand Rapids",
+    "s": "MN",
+    "z": "55744",
+    "cn": "Mann Theatres",
+    "cc": "MANN"
+  },
+  "AATKU": {
+    "n": "Sunset Cinema ",
+    "c": "Pequot Lakes",
+    "s": "MN",
+    "z": "56472",
+    "cn": "RTSIND",
+    "cc": "RTSIND"
+  },
+  "AAKIF": {
+    "n": "AMC Dakota Square 9",
+    "c": "Minot",
+    "s": "ND",
+    "z": "58701",
+    "cn": "AMC",
+    "cc": "AMC"
+  },
+  "AAKAY": {
+    "n": "AMC CLASSIC Great Falls 10",
+    "c": "Great Falls",
+    "s": "MT",
+    "z": "59404",
+    "cn": "AMC",
+    "cc": "AMC"
+  },
+  "AAJXD": {
+    "n": "Norfolk 7 Theatre",
+    "c": "Norfolk",
+    "s": "NE",
+    "z": "68701",
+    "cn": "CEC Theatres",
+    "cc": "CEC"
+  },
+  "AAPGE": {
+    "n": "Mitchell Theatres Lakeside Cinema 6",
+    "c": "Woodward",
+    "s": "OK",
+    "z": "73801",
+    "cn": "Mitchell Theatres",
+    "cc": "MTCH"
+  },
+  "AAKCB": {
+    "n": "Golden Ticket Cinemas Harrison 8",
+    "c": "Harrison",
+    "s": "AR",
+    "z": "72601",
+    "cn": "Golden Ticket Cinemas",
+    "cc": "GOLD"
+  },
+  "AAKGM": {
+    "n": "AMC Lufkin 9",
+    "c": "Lufkin",
+    "s": "TX",
+    "z": "75901",
+    "cn": "AMC",
+    "cc": "AMC"
+  },
+  "AATVJ": {
+    "n": "Cinemark Lufkin",
+    "c": "Lufkin",
+    "s": "TX",
+    "z": "75901",
+    "cn": "Cinemark Theatres",
+    "cc": "CNMK"
+  },
+  "AAXPC": {
+    "n": "Icon Cinema San Angelo",
+    "c": "San Angelo",
+    "s": "TX",
+    "z": "76901",
+    "cn": "RTSIND",
+    "cc": "RTSIND"
+  },
+  "AAMFV": {
+    "n": "Cinemark Tinseltown USA San Angelo",
+    "c": "San Angelo",
+    "s": "TX",
+    "z": "76904",
+    "cn": "Cinemark Theatres",
+    "cc": "CNMK"
+  },
+  "AAWXW": {
+    "n": "Film Alley Bastrop",
+    "c": "Bastrop",
+    "s": "TX",
+    "z": "78602",
+    "cn": "Schulman Theatres",
+    "cc": "SCHM"
+  },
+  "AALLD": {
+    "n": "Regal Prince Kuhio",
+    "c": "Hilo",
+    "s": "HI",
+    "z": "96720",
+    "cn": "Regal",
+    "cc": "REGL"
+  },
+  "AAPXG": {
+    "n": "Eltrym Theater",
+    "c": "Baker City",
+    "s": "OR",
+    "z": "97814",
+    "cn": "RTSIND",
+    "cc": "RTSIND"
+  },
+  "AATEK": {
+    "n": "Carver Cinemas",
+    "c": "McCook",
+    "s": "NE",
+    "z": "69001",
+    "cn": "RTSIND",
+    "cc": "RTSIND"
+  },
+  "AAPJQ": {
+    "n": "Cinemark Victoria 12",
+    "c": "Victoria",
+    "s": "TX",
+    "z": "77904",
+    "cn": "Cinemark Theatres",
+    "cc": "CNMK"
+  },
+  "AAUEF": {
+    "n": "Regal Canyon View",
+    "c": "Grand Junction",
+    "s": "CO",
+    "z": "81505",
+    "cn": "Regal",
+    "cc": "REGL"
+  },
+  "AAYAD": {
+    "n": "Picture Show at Grand Junction",
+    "c": "Grand Junction",
+    "s": "CO",
+    "z": "81505",
+    "cn": "Picture Show Entertainment, LLC",
+    "cc": "PSE"
+  },
+  "AAPUM": {
+    "n": "UEC Theatres Crystal 5",
+    "c": "Elko",
+    "s": "NV",
+    "z": "89801",
+    "cn": "UEC Theatres",
+    "cc": "UEC"
+  },
+  "AAPUL": {
+    "n": "UEC Theatres Elko Cinema 6",
+    "c": "Elko",
+    "s": "NV",
+    "z": "89801",
+    "cn": "UEC Theatres",
+    "cc": "UEC"
+  },
+  "AANZS": {
+    "n": "Regal Goldstream & IMAX",
+    "c": "Fairbanks",
+    "s": "AK",
+    "z": "99701",
+    "cn": "Regal",
+    "cc": "REGL"
   }
 }

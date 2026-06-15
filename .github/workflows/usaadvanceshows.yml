@@ -11,7 +11,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: usa-future
+  group: usa-shows-global
   cancel-in-progress: false
 
 jobs:
@@ -20,28 +20,27 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    timeout-minutes: 300
-
-    strategy:
-
-      fail-fast: false
-
-      matrix:
-        day:
-          - 2
-          - 3
-          - 4
-          - 5
+    timeout-minutes: 100
 
     steps:
 
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Cache Pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
       - name: Install Dependencies
         run: |
@@ -51,9 +50,21 @@ jobs:
             pip install -r requirements.txt
           fi
 
-      - name: Run Advance
+      - name: Advance +2
         run: |
-          MODE=advance ADVANCE_DAYS=${{ matrix.day }} python usadailyshows.py
+          MODE=advance ADVANCE_DAYS=2 python usadailyshows.py
+
+      - name: Advance +3
+        run: |
+          MODE=advance ADVANCE_DAYS=3 python usadailyshows.py
+
+      - name: Advance +4
+        run: |
+          MODE=advance ADVANCE_DAYS=4 python usadailyshows.py
+
+      - name: Advance +5
+        run: |
+          MODE=advance ADVANCE_DAYS=5 python usadailyshows.py
 
       - name: Commit Changes
         run: |
@@ -68,6 +79,27 @@ jobs:
             exit 0
           fi
 
-          git commit -m "USA advance +${{ matrix.day }}"
+          git commit -m "USA future update"
 
-          git push
+      - name: Push Changes
+        run: |
+
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "Nothing to push"
+            exit 0
+          fi
+
+          for i in 1 2 3 4 5; do
+
+            git pull --rebase origin main || true
+
+            if git push origin main; then
+              exit 0
+            fi
+
+            echo "Retry $i"
+            sleep 15
+
+          done
+
+          exit 1

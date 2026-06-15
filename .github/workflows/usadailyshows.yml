@@ -11,7 +11,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: usa-daily
+  group: usa-shows-global
   cancel-in-progress: false
 
 jobs:
@@ -20,17 +20,27 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    timeout-minutes: 180
+    timeout-minutes: 60
 
     steps:
 
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Cache Pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
       - name: Install Dependencies
         run: |
@@ -63,4 +73,25 @@ jobs:
 
           git commit -m "USA daily update"
 
-          git push
+      - name: Push Changes
+        run: |
+
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "Nothing to push"
+            exit 0
+          fi
+
+          for i in 1 2 3 4 5; do
+
+            git pull --rebase origin main || true
+
+            if git push origin main; then
+              exit 0
+            fi
+
+            echo "Retry $i"
+            sleep 15
+
+          done
+
+          exit 1

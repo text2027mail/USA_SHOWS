@@ -36,24 +36,6 @@ FORMAT_KEYWORDS = [
 "4DX","ScreenX","Cinemark XD","Dolby Cinema"
 ]
 
-FORMAT_CODES = {
-    "Standard": "S",
-    "IMAX": "I",
-    "Dolby Cinema": "D",
-    "4DX": "4",
-    "ScreenX": "X",
-    "RPX": "R"
-}
-
-LANG_CODES = {
-    "English": "E",
-    "Hindi": "H",
-    "Tamil": "TA",
-    "Telugu": "TE",
-    "Kannada": "KN",
-    "Malayalam": "ML"
-}
-
 
 USER_AGENTS = [
 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/{version} Safari/537.36",
@@ -258,24 +240,16 @@ def process_zip(args):
                     "p": poster
                 }
 
-                shows.append([
-                    show["showtime_id"],
-                    movie_id,
-                    theater_id,
-                    (
-                        show["date"][11:16]
-                        if show["date"]
-                        else ""
-                    ),
-                    FORMAT_CODES.get(
-                        show["format"],
-                        show["format"]
-                    ),
-                    LANG_CODES.get(
-                        show["language"],
-                        show["language"]
-                    )
-                ])
+            for show in prepare_showtimes(movie):
+
+                shows.append({
+                    "sid": show["showtime_id"],
+                    "m": movie_id,
+                    "t": theater_id,
+                    "d": show["date"],
+                    "f": show["format"],
+                    "l": show["language"]
+                })
 
     return {
         "movies": movies,
@@ -323,7 +297,10 @@ def scrape_showtimes(zip_list, date):
                 for show in result["shows"]:
 
                     sid = str(
-                        show[0]
+                        show.get(
+                            "sid",
+                            ""
+                        )
                     ).strip()
 
                     if not sid:
@@ -571,10 +548,10 @@ def run_for_date(RELEASE_DATE):
 
     shows.sort(
         key=lambda x: (
-            str(x[1]),
-            str(x[2]),
-            str(x[3]),
-            str(x[0])
+            str(x.get("m", "")),
+            str(x.get("t", "")),
+            str(x.get("d", "")),
+            str(x.get("sid", ""))
         )
     )
 
@@ -598,9 +575,10 @@ def run_for_date(RELEASE_DATE):
                 )
 
                 for s in old:
+
                     existing_shows[
                         str(
-                            s[0]
+                            s["sid"]
                         )
                     ] = s
 
@@ -611,7 +589,7 @@ def run_for_date(RELEASE_DATE):
 
             existing_shows[
                 str(
-                    s[0]
+                    s["sid"]
                 )
             ] = s
 
@@ -621,10 +599,10 @@ def run_for_date(RELEASE_DATE):
 
         final_shows.sort(
             key=lambda x: (
-                str(x[1]),
-                str(x[2]),
-                str(x[3]),
-                str(x[0])
+                str(x.get("m", "")),
+                str(x.get("t", "")),
+                str(x.get("d", "")),
+                str(x.get("sid", ""))
             )
         )
 

@@ -9,12 +9,31 @@ import aiohttp
 from aiohttp_retry import RetryClient, ExponentialRetry
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from tqdm import tqdm
-from datetime import datetime, date
 from zoneinfo import ZoneInfo
+from datetime import (
+    datetime,
+    date,
+    timedelta
+)
 
 # ================= CONFIG =================
 
-REWRITE_SHOWS = False
+
+MODE = os.getenv(
+    "MODE",
+    "daily"
+).lower()
+
+ADVANCE_DAYS = int(
+    os.getenv(
+        "ADVANCE_DAYS",
+        "1"
+    )
+)
+
+REWRITE_SHOWS = (
+    MODE != "daily"
+)
 
 FINAL_SUMMARY = []
 
@@ -446,11 +465,26 @@ def run_for_date(RELEASE_DATE):
         ZoneInfo("America/Los_Angeles")
     ).date()
 
-    DATE = (
-        RELEASE_DATE
-        if now_pst < RELEASE_DATE
-        else now_pst
-    ).strftime("%Y-%m-%d")
+    if MODE != "daily":
+
+        DATE = (
+            now_pst +
+            timedelta(
+                days=ADVANCE_DAYS
+            )
+        ).strftime(
+            "%Y-%m-%d"
+        )
+
+    else:
+
+        DATE = (
+            RELEASE_DATE
+            if now_pst < RELEASE_DATE
+            else now_pst
+        ).strftime(
+            "%Y-%m-%d"
+        )
 
     print(
         "DATE:",
@@ -476,7 +510,11 @@ def run_for_date(RELEASE_DATE):
 
     DATA_DIR = os.path.join(
         BASE_DIR,
-        "data"
+        (
+            "advance"
+            if MODE == "advance"
+            else "data"
+        )
     )
 
     os.makedirs(

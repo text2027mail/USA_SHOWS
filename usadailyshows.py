@@ -36,6 +36,24 @@ FORMAT_KEYWORDS = [
 "4DX","ScreenX","Cinemark XD","Dolby Cinema"
 ]
 
+FORMAT_CODES = {
+    "Standard": "S",
+    "IMAX": "I",
+    "Dolby Cinema": "D",
+    "4DX": "4",
+    "ScreenX": "X",
+    "RPX": "R"
+}
+
+LANG_CODES = {
+    "English": "E",
+    "Hindi": "H",
+    "Tamil": "TA",
+    "Telugu": "TE",
+    "Kannada": "KN",
+    "Malayalam": "ML"
+}
+
 
 USER_AGENTS = [
 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/{version} Safari/537.36",
@@ -240,16 +258,28 @@ def process_zip(args):
                     "p": poster
                 }
 
-            for show in prepare_showtimes(movie):
+            for show in prepare_showtimes(
+                movie
+            ):
 
-                shows.append({
-                    "sid": show["showtime_id"],
-                    "m": movie_id,
-                    "t": theater_id,
-                    "d": show["date"],
-                    "f": show["format"],
-                    "l": show["language"]
-                })
+                shows.append([
+                    show["showtime_id"],
+                    movie_id,
+                    theater_id,
+                    (
+                        show["date"][11:16]
+                        if show["date"]
+                        else ""
+                    ),
+                    FORMAT_CODES.get(
+                        show["format"],
+                        show["format"]
+                    ),
+                    LANG_CODES.get(
+                        show["language"],
+                        show["language"]
+                    )
+                ])
 
     return {
         "movies": movies,
@@ -297,10 +327,7 @@ def scrape_showtimes(zip_list, date):
                 for show in result["shows"]:
 
                     sid = str(
-                        show.get(
-                            "sid",
-                            ""
-                        )
+                        show[0]
                     ).strip()
 
                     if not sid:
@@ -548,10 +575,10 @@ def run_for_date(RELEASE_DATE):
 
     shows.sort(
         key=lambda x: (
-            str(x.get("m", "")),
-            str(x.get("t", "")),
-            str(x.get("d", "")),
-            str(x.get("sid", ""))
+            str(x[1]),
+            str(x[2]),
+            str(x[3]),
+            str(x[0])
         )
     )
 
@@ -575,10 +602,9 @@ def run_for_date(RELEASE_DATE):
                 )
 
                 for s in old:
-
                     existing_shows[
                         str(
-                            s["sid"]
+                            s[0]
                         )
                     ] = s
 
@@ -589,7 +615,7 @@ def run_for_date(RELEASE_DATE):
 
             existing_shows[
                 str(
-                    s["sid"]
+                    s[0]
                 )
             ] = s
 
@@ -599,10 +625,10 @@ def run_for_date(RELEASE_DATE):
 
         final_shows.sort(
             key=lambda x: (
-                str(x.get("m", "")),
-                str(x.get("t", "")),
-                str(x.get("d", "")),
-                str(x.get("sid", ""))
+                str(x[1]),
+                str(x[2]),
+                str(x[3]),
+                str(x[0])
             )
         )
 
@@ -634,23 +660,34 @@ def run_for_date(RELEASE_DATE):
 
         f.write("\n]")
 
-    json.dump(
-        {
-            "date": DATE,
-            "movies": len(existing_movies),
-            "theatres": len(existing_theatres),
-            "shows": len(final_shows)
-        },
-        open(
-            os.path.join(
-                BASE_DIR,
-                "index.json"
-            ),            "w",
-            encoding="utf-8"
+    with open(
+        os.path.join(
+            BASE_DIR,
+            "index.json"
         ),
-        separators=(",", ":")
-    )
+        "w",
+        encoding="utf-8"
+    ) as f:
 
+        json.dump(
+            {
+                "date": DATE,
+                "movies": len(
+                    existing_movies
+                ),
+                "theatres": len(
+                    existing_theatres
+                ),
+                "shows": len(
+                    final_shows
+                )
+            },
+            f,
+            separators=(
+                ",",
+                ":"
+            )
+        )
     with open(
         failures_file,
         "w",
